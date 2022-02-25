@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<h1>Server Page</h1>
+
+		<button id="openButton">Open</button>
+		<button id="saveButton">Save</button>
+
+		<hr>
+
+		<textarea id="data"></textarea>
+
+<script>
+
+document.getElementById("openButton").addEventListener('click', async () => {
+
+	electron.log('openButton click');
+	
+
+	const data = await electron.open();
+
+	console.log("data=", data);
+
+	document.getElementById("data").value = JSON.stringify(data, null, 2);
+
+});
+
+document.getElementById('saveButton').addEventListener('click', async () => {
+	electron.log('saveButton clicked');
+
+	const data = JSON.parse(document.getElementById('data').value);
+
+	console.log("data=", data);
+
+	await electron.save(data);
+});
+
+</script>
+
+	</body>
+</html>
